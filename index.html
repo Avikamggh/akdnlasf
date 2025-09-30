@@ -10,10 +10,11 @@
 </head>
 <body>
 <script type="module">
+  // ✅ Use full CDN URLs (not "three")
   import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.module.js";
   import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.152.0/examples/jsm/loaders/GLTFLoader.js";
 
-  // Scene setup
+  // Scene
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x000000);
 
@@ -44,37 +45,30 @@
   ground.rotation.x = -Math.PI / 2;
   scene.add(ground);
 
-  // Load GLB Model
+  // Load Model
   const loader = new GLTFLoader();
   let ramModel;
 
   loader.load(
-    "./imigvadk.glb", // must be in same folder as index.html
+    "./imigvadk.glb",   // must be in same folder as index.html
     (gltf) => {
       ramModel = gltf.scene;
       ramModel.scale.set(2, 2, 2);
-      ramModel.position.set(0, 0, 0);
       scene.add(ramModel);
     },
     undefined,
-    (error) => {
-      console.error("Error loading model:", error);
-    }
+    (err) => console.error("Error loading model:", err)
   );
 
   // Animate
   function animate() {
     requestAnimationFrame(animate);
-
-    if (ramModel) {
-      ramModel.rotation.y += 0.01;
-    }
-
+    if (ramModel) ramModel.rotation.y += 0.01;
     renderer.render(scene, camera);
   }
   animate();
 
-  // Handle resize
+  // Resize
   window.addEventListener("resize", () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
