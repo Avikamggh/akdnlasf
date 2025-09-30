@@ -49,7 +49,7 @@
   let ramModel;
 
   loader.load(
-    "./imigvadk.glb", // model must be in same folder as index.html
+    "./imigvadk.glb", // must be in same folder as index.html
     (gltf) => {
       ramModel = gltf.scene;
       ramModel.scale.set(2, 2, 2);
@@ -67,7 +67,7 @@
     requestAnimationFrame(animate);
 
     if (ramModel) {
-      ramModel.rotation.y += 0.01; // spin slowly for testing
+      ramModel.rotation.y += 0.01;
     }
 
     renderer.render(scene, camera);
